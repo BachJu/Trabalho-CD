@@ -1,8 +1,10 @@
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, confusion_matrix
 import xgboost as xgb
 from sklearn.model_selection import train_test_split
 import numpy as np
 import pandas as pd
+from matplotlib import pyplot as plt
+import seaborn as sns
 
 class XGBoostImpl:
     def __init__(self):
@@ -49,3 +51,11 @@ class XGBoostImpl:
         y_pred = np.round(y_pred)
         acc = accuracy_score(y_test, y_pred)
         print("Acurácia do modelo XGBoost:", acc*100,"%")
+
+        plt.figure(figsize=(5,4))
+        cm = confusion_matrix(y_test, y_pred)
+        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+        plt.title("Matriz de confusão XGBoost")
+        plt.xlabel("Valor predito")
+        plt.ylabel("Valor real")
+        plt.show()
