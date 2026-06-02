@@ -9,10 +9,7 @@ if __name__ == '__main__':
 
     from decision_tree import DecisionTree
     from xgboost_impl import XGBoostImpl
-from decision_tree import DecisionTree
-from random_forest import RandomForest
-
-if __name__ == '__main__':
+    from random_forest import RandomForest
 
     data = pd.read_csv('winequality-red.csv', sep=';')
 
@@ -20,18 +17,19 @@ if __name__ == '__main__':
     y = data['quality'].values
 
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=1234
-    )
+        X, y, test_size=0.2, random_state=1234)
 
     clf = DecisionTree()
     clf.fit(X_train, y_train)
 
     prediction = clf.predict(X_test)
     
-    acc = accuracy(y_test, prediction)
-    print(acc)
+    #def accuracy(y_test, y_pred):
+    #    return np.sum(y_test == y_pred) / len(y_test)
+    
+    #acc = accuracy(y_test, prediction)
+    #print(acc)
 
-    XGBoostImpl()
     acuracia_arvore_decisao = accuracy_score(y_test, prediction)
     print(f'Acurácia - Árvore de Decisão: {acuracia_arvore_decisao}')
 
@@ -42,3 +40,4 @@ if __name__ == '__main__':
 
     acuracia_random_forest = accuracy_score(y_test, prediction)
     print(f'Acurácia - Random Forest: {acuracia_random_forest}')
+    XGBoostImpl()
