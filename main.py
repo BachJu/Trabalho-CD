@@ -5,6 +5,7 @@ if __name__ == '__main__':
     from sklearn.model_selection import train_test_split
 
     from decision_tree import DecisionTree
+    from xgboost_impl import XGBoostImpl
 
     def accuracy(y_test, y_pred):
         return np.sum(y_test == y_pred) / len(y_test)
@@ -25,3 +26,5 @@ if __name__ == '__main__':
     
     acc = accuracy(y_test, prediction)
     print(acc)
+
+    XGBoostImpl()
