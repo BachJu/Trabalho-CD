@@ -2,6 +2,13 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
+if __name__ == '__main__':
+    import pandas as pd
+    import numpy as np
+    from sklearn.model_selection import train_test_split
+
+    from decision_tree import DecisionTree
+    from xgboost_impl import XGBoostImpl
 from decision_tree import DecisionTree
 from random_forest import RandomForest
 
@@ -21,6 +28,10 @@ if __name__ == '__main__':
 
     prediction = clf.predict(X_test)
     
+    acc = accuracy(y_test, prediction)
+    print(acc)
+
+    XGBoostImpl()
     acuracia_arvore_decisao = accuracy_score(y_test, prediction)
     print(f'Acurácia - Árvore de Decisão: {acuracia_arvore_decisao}')
 
