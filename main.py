@@ -1,3 +1,6 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
 if __name__ == '__main__':
     import pandas as pd
@@ -6,9 +9,10 @@ if __name__ == '__main__':
 
     from decision_tree import DecisionTree
     from xgboost_impl import XGBoostImpl
+from decision_tree import DecisionTree
+from random_forest import RandomForest
 
-    def accuracy(y_test, y_pred):
-        return np.sum(y_test == y_pred) / len(y_test)
+if __name__ == '__main__':
 
     data = pd.read_csv('winequality-red.csv', sep=';')
 
@@ -28,3 +32,13 @@ if __name__ == '__main__':
     print(acc)
 
     XGBoostImpl()
+    acuracia_arvore_decisao = accuracy_score(y_test, prediction)
+    print(f'Acurácia - Árvore de Decisão: {acuracia_arvore_decisao}')
+
+    clf = RandomForest(n_trees=20)
+    clf.fit(X_train, y_train)
+
+    prediction = clf.predict(X_test)
+
+    acuracia_random_forest = accuracy_score(y_test, prediction)
+    print(f'Acurácia - Random Forest: {acuracia_random_forest}')
