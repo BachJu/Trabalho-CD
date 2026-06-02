@@ -12,7 +12,7 @@ class RandomForest:
     min_samples_split   -> número mínimo de amostras
     feature             -> qual variável é usada
 
-    trees               -> árvores
+    trees               -> árvores criadas
     '''
     def __init__(self, n_trees=10, max_depth=10, min_samples_split=2, feature=None):
         self.n_trees = n_trees
@@ -23,7 +23,7 @@ class RandomForest:
         self.trees = []
     
     '''
-    Método que treina a árvore
+    Método que treina o modelo
     '''
     def fit(self, X, y):
         self.trees = []
@@ -38,6 +38,9 @@ class RandomForest:
             tree.fit(X_sample, y_sample)
             self.trees.append(tree)
     
+    '''
+    Amostragem aleatória, processo de bootstrapping
+    '''
     def _bootstrap_samples(self, X, y):
         n_samples = X.shape[0]
         idxs = np.random.choice(
@@ -47,6 +50,9 @@ class RandomForest:
         )
         return X[idxs], y[idxs]
     
+    '''
+    Retorna a classe que apareceu mais vezes
+    '''
     def _most_common_label(self, y):
         counter = Counter(y)
         most_common_list = counter.most_common(1)
@@ -54,7 +60,10 @@ class RandomForest:
         return most_common
     
     def predict(self, X):
+        # Coleta as previsões de todas as árvores para todas as amostras
         predictions = np.array([tree.predict(X) for tree in self.trees])
+        # Altera os eixos da matriz
         tree_predictions = np.swapaxes(predictions, 0, 1)
+        # Para cada amostra encontra a classe que apareceu mais vezes dentre as previsões
         predictions = np.array([self._most_common_label(pred) for pred in tree_predictions])
         return predictions

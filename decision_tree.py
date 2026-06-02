@@ -148,13 +148,16 @@ class DecisionTree:
         return -np.sum([p * np.log(p) for p in ps if p>0])
 
     '''
-    
+    Método responsável por separar os índices a esquerda ou a direita
     '''
     def _split(self, X_column, split_thresh):
         left_idxs = np.argwhere(X_column <= split_thresh).flatten()
         right_idxs = np.argwhere(X_column > split_thresh).flatten()
         return left_idxs, right_idxs
 
+    '''
+    Recebe uma matriz de amostras e faz as previsões
+    '''
     def predict(self, X):
         return np.array([self._traverse_tree(x, self.root) for x in X])
 
