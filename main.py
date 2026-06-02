@@ -1,13 +1,11 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+from decision_tree import DecisionTree
+from random_forest import RandomForest
 
 if __name__ == '__main__':
-    import pandas as pd
-    import numpy as np
-    from sklearn.model_selection import train_test_split
-
-    from decision_tree import DecisionTree
-
-    def accuracy(y_test, y_pred):
-        return np.sum(y_test == y_pred) / len(y_test)
 
     data = pd.read_csv('winequality-red.csv', sep=';')
 
@@ -23,5 +21,13 @@ if __name__ == '__main__':
 
     prediction = clf.predict(X_test)
     
-    acc = accuracy(y_test, prediction)
-    print(acc)
+    acuracia_arvore_decisao = accuracy_score(y_test, prediction)
+    print(f'Acurácia - Árvore de Decisão: {acuracia_arvore_decisao}')
+
+    clf = RandomForest(n_trees=20)
+    clf.fit(X_train, y_train)
+
+    prediction = clf.predict(X_test)
+
+    acuracia_random_forest = accuracy_score(y_test, prediction)
+    print(f'Acurácia - Random Forest: {acuracia_random_forest}')
